@@ -1,1 +1,0 @@
-module.exports.a = "aaaaaa111bbbbb";

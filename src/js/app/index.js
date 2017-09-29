@@ -1,2 +1,2 @@
-var obj = require('../mod/b.js');
-console.log(obj)
+var Toast = require('../mod/toast.js').Toast;
+Toast("hello world!")

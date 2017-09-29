@@ -6,5 +6,21 @@ module.exports = {
     output: {
         path: path.join(__dirname,"../public/js"),
         filename: 'index.js'
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.less$/,
+                use: ["style-loader","css-loader","less-loader"]
+            }
+        ]
+    },
+
+    resolve: {
+        alias: {
+            jquery: path.join(__dirname,'js/lib/jquery-3.1.1.min.js'),
+            less: path.join(__dirname,'less')
+        }
     }
 }
