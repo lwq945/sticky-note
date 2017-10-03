@@ -1,0 +1,100 @@
+#content {
+    position: relative;
+    margin: 60px auto 0;
+   
+.note {
+    position: absolute;
+    width: 260px;
+    margin: 16px 10px;
+    font-size: 16px;
+    color: #fff;
+    transition: all 1s ease-out;
+    
+    &:before,
+    &:after {
+        position: absolute;
+        bottom: 15px;
+        content: '';
+        width: 50%;
+        height: 25px;
+        max-width: 120px;
+        background: #777;
+        box-shadow: 0 15px 10px #777;
+        z-index: -1;
+    }
+
+    &:before {
+        left: 10px;
+        transform: rotate(-4deg);
+      }
+      
+    &:after {
+        right: 10px;
+        transform: rotate(4deg);
+      }
+    .note-header{
+        width: 260px;
+        height: 24px;
+        cursor: move;
+
+        &:hover .delete {
+            opacity: 1;
+        }
+
+        &:before {
+            position: absolute;
+            left: 50%;
+            top: -11px;
+            margin-left: -32px;
+            content: '';
+            display: block;
+            width: 64px;
+            height: 18px;
+            background: #35bba3;
+        }
+
+        &:after {
+            position: absolute;
+            left: 50%;
+            top: -11px;
+            margin-left: 32px;
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid #299683;
+            border-top: 18px solid transparent;
+            z-index: -1;
+        }
+    }
+    .note-content{
+        color: #000;
+        padding: 20px 10px;
+        font-size: 16px;
+    }
+    .time{
+        width: 100%;
+        margin-right: 10px;
+        padding: 0 10px;
+        text-align: right;
+        color: #0083ff;
+        line-height: 26px;
+    }
+    .delete{
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        opacity: 0;
+        color: #858585;
+        font-size: 12px;
+        cursor: pointer;
+        transition: opacity .3s;
+    }
+    .draggable {
+        opacity: .8;
+        cursor: move;
+        transform: none;
+    }
+
+}
+}
