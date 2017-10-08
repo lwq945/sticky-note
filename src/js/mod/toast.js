@@ -1,5 +1,5 @@
 require('less/toast.less');
-var $ = require('jquery');
+//var $ = require('jquery');
 
 var Toast =(function(){
     function toast(msg,time){
@@ -19,12 +19,12 @@ var Toast =(function(){
         showTime: function(){
             var _this = this;
             this.$toast.fadeIn(300,function(){
-                setTimeout(()=>{
+                setTimeout(function(){
                     _this.$toast.fadeOut(300,function(){
                         _this.$toast.remove();
                     });
                 },_this.dismissTime);
-            })
+            });
         }
     
     };
@@ -36,6 +36,4 @@ var Toast =(function(){
     }
 })()
 
-
-//window.Toast = Toast;
 module.exports = Toast;

@@ -1,5 +1,5 @@
 //发布订阅模式给组件间解耦
-var eventCenter = (function(){
+var EventCenter = (function(){
     var events = {}; //存储所有的key:value
     function on(evt,handler){
         //一开始events[evt]=[]空数组
@@ -30,4 +30,4 @@ var eventCenter = (function(){
     }
 })()
 
-module.exports = eventCenter;
+module.exports = EventCenter;

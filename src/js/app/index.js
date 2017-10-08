@@ -1,3 +1,4 @@
+require('less/iconfont.less');
 require('less/index.less');
 
 var NoteManager = require('../mod/note-manager.js');

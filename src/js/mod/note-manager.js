@@ -1,16 +1,17 @@
 var Toast = require('./toast.js');
 var Note = require('./note.js');
 var Event = require('./event.js');
-var $ = require('jquery');
+//var $ = require('jquery');
 
 var NoteManager = (function(){
     function load(){
         $.get('/api/notes').done(function(ret){
-            if(ret.status === 0){
+            if(ret.status == 0){
                 $.each(ret.data,function(idx,article){
-                    new Note({
+                    new Note.init({
                         id: article.id,
                         context: article.text
+                        //update: new Date(parseInt(article.updatedAt)).toLocaleString('chinese',{hour12:false})
                     });
                 });
 

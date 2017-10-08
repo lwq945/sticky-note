@@ -1,13 +1,13 @@
  require('less/note.less');
 
- var $ = require('jquery');
+ //var $ = require('jquery');
  var Toast = require('./toast.js');
  var Event = require('./event.js');
 
  var Note = (function(){
      function _note(opts){
         this.initOpts(opts);
-        // this.bindEvent();
+        this.bindEvent();
      }
 
      _note.prototype = {
@@ -18,7 +18,9 @@
             ['#eee34b','#f2eb67'],
             ['#c24226','#d15a39'],
             ['#c1c341','#d0d25c'],
-            ['#3f78c3','#5591d2']
+            ['#3f78c3','#5591d2'],
+            ['#65d139','#6de977']
+            
         ],
 
         //每个note默认的属性
@@ -26,7 +28,7 @@
             id: '', //note的id
             $ct: $('#content').length > 0 ? $('#content') : $('body'), //存放note的容器
             context: '点击这里开始编辑',
-            time:new Date().toLocaleString('chinese',{hour12:false})
+            time: new Date().toLocaleString('chinese',{hour12:false})
         },
 
         initOpts: function(opts){
@@ -39,28 +41,29 @@
             this.setStyle();
             Event.fire('waterfall');
         },
-
+        
         createNote: function(){
             var tpl = '<div class="note">'
+                    + '<div class="top"></div>'
                     + '<div class="note-header"><span class="delete">&times;</span></div>'
                     + '<div class="note-content" contenteditable="true"></div>'
                     + '<p class="time">'+new Date().toLocaleString('chinese',{hour12:false})+'</p>'
                     + '</div>';
             this.$note = $(tpl);
             this.$note.find('.note-content').html(this.opts.context);
-            this.$note.find('.time').html(this.opts.time);
+            this.$note.find('.time').html(this.opts.update);
             this.opts.$ct.append(this.$note);
             if(!this.id){
-                this.$note.css({left: '10px', top: '100px'});
+                this.$note.css({'left': '10px','top':'100px'});
             }    
         },
 
         setStyle: function(){
-            var color = this.colors[Math.floor(Math.random()*6)];
-            this.$note.find('.note-header').css('background-color',color[0]);
+            var color = this.colors[Math.floor(Math.random()*7)];
+            this.$note.find('.top').css('background-color',color[0]);
+            this.$note.find('.note-header').css('background-color',color[1]);
             this.$note.find('.note-content').css('background-color',color[1]);
-            this.$note.find('.time').css('background-color',color[1]);
-            this.bindEvent();
+            this.$note.find('.time').css('background-color',color[1]);   
         },
 
         setLayout: function(){
@@ -76,19 +79,19 @@
         bindEvent: function(){
             var _this = this,
                 $note = this.$note,
-                $noteHeader = $note.find('.note-header'),
+                $noteTop = $note.find('.top'),
                 $noteContent = $note.find('.note-content'),
                 $noteTime = $note.find('.time'),
                 $delete = $note.find('.delete');
 
             //获得焦点清空内容，把元素html内容存给before;修改内容后失去焦点，粘贴内容后
-            $noteContent.on('focus',function(){
+            $noteContent.on('focus',function() {
                 if($noteContent.html() == '点击这里开始编辑'){
                     $noteContent.html('');
                 }
                 $noteContent.data('before',$noteContent.html());
-            }).on('blur paste',function(){
-                if($noteContent.data('before') != $noteContent.html()){
+            }).on('blur paste',function() {
+                if($noteContent.data('before') != $noteContent.html() ) {
                     $noteContent.data('before',$noteContent.html());
                     _this.setLayout();
                     if(_this.id){
@@ -105,12 +108,12 @@
             });
 
             //点击头部移动
-            $noteHeader.on('mousedown',function(e){
+            $noteTop.on('mousedown',function(e){
                 var evtX = e.pageX - $note.offset().left,
                     evtY = e.pageY - $note.offset().top;
                 $note.addClass('draggable').data('evtPos',{x:evtX,y:evtY});
             }).on('mouseup',function(){
-                $note.removeClass('draggable').removeData('evtPos');
+                $note.removeClass('draggable').removeData('pos');
             });
 
             $('body').on('mousemove',function(e){
@@ -123,13 +126,13 @@
         },
 
         edit: function(msg){
-            var _this = this;
             $.post('/api/notes/edit',{
                 id: this.id,
                 note: msg
             }).done(function(ret){
                 if(ret.status === 0){
-                    Toast.init("编辑成功");
+                    Toast.init("修改成功");
+                    
                 }else{
                     Toast.init(ret.errorMsg);
                 }
@@ -138,21 +141,20 @@
 
         add: function(msg){
             var _this = this;
-            $.post('/api/notes/add',{
-                note: msg
-            }).done(function(ret){
+            $.post('/api/notes/add',{note: msg}).done(function(ret){
                 if(ret.status === 0){
-                    _this.id = ret.data.id;
                     Toast.init("添加成功");
                 }else{
+                    _this.$note.remove();
+                    Event.fire('waterfall');
                     Toast.init(ret.errorMsg);
                 }
-            })
+            });
         },
 
         delete: function(){
             var _this = this;
-            $.post('/api/notes/dalete',{
+            $.post('/api/notes/delete',{
                 id: this.id
             }).done(function(ret){
                 if(ret.status === 0){

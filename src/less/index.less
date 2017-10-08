@@ -10,7 +10,7 @@
 body {
     font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
-	background-color: #dedede;
+	background-color: #f2f2f2;
 }
 .clearfix:after{
     content: "";
@@ -18,13 +18,14 @@ body {
     clear: both;
 }
 input,button,select,textarea,div{
-    outline:none;border: none;
+	outline:none;
+	border: none;
 }
 a{
     text-decoration: none;
     color: #000;
 }
-ul,li{
+ul li{
     list-style: none;
 }
 
@@ -39,11 +40,23 @@ ul,li{
 	left: 0;
 	top: 0;
 	z-index: 10001;
+
+
+	.logo {
+		display: block;
+		float: left;
+		margin: 8px 20px;
+		img {
+			width: 40px;
+			height: 40px;
+		}
+	}
+	
 	.add-note{
 	   display: block;
-	   padding: 18px 12px;
-	   margin: 0 5px;
-	   float: left;
+	   padding: 18px 0px;
+	   margin: 0 20px;
+	   float: right;
 	   color: #fff;
 	   &:hover {
 		   color:#99958F;
@@ -54,16 +67,28 @@ ul,li{
 		margin-right: 20px;
 		li{
 			float: left;
-			margin-right: 10px;
+			margin-left: 10px;
 			line-height: 56px;
+			color: #fff;
 			a{
 				display: block;
 				color: #fff;
 			}
+
 			img{
-				width: 50px;
+				width: 30px;
+				margin-top: 13px;
 				border-radius: 50%;
-				margin-top: 3px;
+				
+			}
+
+			.title {
+				color: #fff;
+			}
+			.login{
+				&:hover {
+					color:#99958F;
+				}
 			}
 		}
 

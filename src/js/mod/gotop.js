@@ -1,5 +1,5 @@
 require('less/gotop.less');
- var $ = require('jquery');
+ //var $ = require('jquery');
 
 var GoTop = (function(){
     function gotop(ct){
