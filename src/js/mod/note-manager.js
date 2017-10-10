@@ -10,7 +10,8 @@ var NoteManager = (function(){
                 $.each(ret.data,function(idx,article){
                     new Note.init({
                         id: article.id,
-                        context: article.text
+                        context: article.text,
+                        username: article.username
                         //update: new Date(parseInt(article.updatedAt)).toLocaleString('chinese',{hour12:false})
                     });
                 });

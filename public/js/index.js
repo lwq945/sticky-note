@@ -2499,7 +2499,8 @@ var NoteManager = function () {
                 $.each(ret.data, function (idx, article) {
                     new Note.init({
                         id: article.id,
-                        context: article.text
+                        context: article.text,
+                        username: article.username
                         //update: new Date(parseInt(article.updatedAt)).toLocaleString('chinese',{hour12:false})
                     });
                 });
@@ -2580,7 +2581,6 @@ module.exports = __webpack_amd_options__;
 
 __webpack_require__(11);
 
-//var $ = require('jquery');
 var Toast = __webpack_require__(2);
 var Event = __webpack_require__(1);
 
@@ -2614,10 +2614,13 @@ var Note = function () {
         },
 
         createNote: function createNote() {
-            var tpl = '<div class="note">' + '<div class="top"></div>' + '<div class="note-header"><span class="delete">&times;</span></div>' + '<div class="note-content" contenteditable="true"></div>' + '<p class="time">' + new Date().toLocaleString('chinese', { hour12: false }) + '</p>' + '</div>';
+            var tpl = '<div class="note">' + '<div class="top"></div>' + '<div class="note-header"><span class="delete">&times;</span></div>' + '<div class="note-content" contenteditable="true"></div>'
+            // + '<p class="time">'+new Date().toLocaleString('chinese',{hour12:false})+'</p>'
+            + '<p class="username"></p>' + '</div>';
             this.$note = $(tpl);
             this.$note.find('.note-content').html(this.opts.context);
-            this.$note.find('.time').html(this.opts.update);
+            this.$note.find('.username').html(this.opts.username);
+            // this.$note.find('.time').html(this.opts.update);
             this.opts.$ct.append(this.$note);
             if (!this.id) {
                 this.$note.css({ 'left': '10px', 'top': '100px' });
@@ -2629,7 +2632,8 @@ var Note = function () {
             this.$note.find('.top').css('background-color', color[0]);
             this.$note.find('.note-header').css('background-color', color[1]);
             this.$note.find('.note-content').css('background-color', color[1]);
-            this.$note.find('.time').css('background-color', color[1]);
+            // this.$note.find('.time').css('background-color',color[1]); 
+            this.$note.find('.username').css('background-color', color[1]);
         },
 
         setLayout: function setLayout() {
@@ -2647,8 +2651,9 @@ var Note = function () {
                 $note = this.$note,
                 $noteTop = $note.find('.top'),
                 $noteContent = $note.find('.note-content'),
-                $noteTime = $note.find('.time'),
-                $delete = $note.find('.delete');
+
+            // $noteTime = $note.find('.time'),
+            $delete = $note.find('.delete');
 
             //获得焦点清空内容，把元素html内容存给before;修改内容后失去焦点，粘贴内容后
             $noteContent.on('focus', function () {
@@ -2707,6 +2712,12 @@ var Note = function () {
             var _this = this;
             $.post('/api/notes/add', { note: msg }).done(function (ret) {
                 if (ret.status === 0) {
+                    _this.$note.remove();
+                    new Note.init({
+                        id: ret.result.id,
+                        context: ret.result.text,
+                        username: ret.result.username
+                    });
                     Toast.init("添加成功");
                 } else {
                     _this.$note.remove();

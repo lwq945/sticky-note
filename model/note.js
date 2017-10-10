@@ -34,6 +34,9 @@ const sequelize = new Sequelize(undefined, undefined, undefined, {
     },
     uid: {
       type: Sequelize.STRING
+    },
+    username: {
+      type: Sequelize.STRING
     }
   });
 

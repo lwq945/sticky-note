@@ -119,8 +119,8 @@ ul li {
 }
 #content .note {
   position: absolute;
-  width: 260px;
-  margin: 16px 15px;
+  width: 160px;
+  margin: 16px 10px;
   font-size: 16px;
   color: #fff;
   transition: all 1s ease-out;
@@ -132,7 +132,7 @@ ul li {
   content: '';
   width: 50%;
   height: 25px;
-  max-width: 120px;
+  max-width: 70px;
   background: #777;
   box-shadow: 0 15px 10px #777;
   z-index: -1;
@@ -159,8 +159,8 @@ ul li {
   position: absolute;
   top: 1px;
   right: 4px;
-  opacity: 0;
-  color: #E7E6F0;
+  opacity: 0.5;
+  color: #100F1B;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -172,19 +172,19 @@ ul li {
   opacity: 1;
   background-color: #389AB3;
   border: 1px solid #ddd;
+  color: #fff;
   border-radius: 50%;
 }
 #content .note .note-content {
-  color: #696767;
-  padding: 20px 10px;
+  color: #1f1802;
+  padding: 20px 10px 40px ;
   font-size: 16px;
 }
-#content .note .time {
+#content .note .username {
   width: 100%;
-  margin-right: 10px;
-  padding: 0 10px;
+  padding-right: 10px;
   text-align: right;
-  color: #0083ff;
+  color: #464207;
   line-height: 26px;
 }
 #content .draggable {

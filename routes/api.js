@@ -38,10 +38,10 @@ router.post('/notes/add', function(req, res, next) {
 
   var note = req.body.note;
   var uid = req.session.user.id;
+  var username = req.session.user.username;
 
-
-  Note.create({text: note,uid:uid}).then(()=>{
-    res.send({status: 0})
+  Note.create({text: note,uid:uid,username: username}).then((data)=>{
+    res.send({status: 0, result: data.get({ plain: true}) })
   }).catch(()=>{
     res.send({status:1,errorMsg:'数据库出错!'})
   })
