@@ -17,4 +17,9 @@
 - 修改便利贴
 - 删除便利贴
 ## 源码
-- git clone 
+- git clone git@github.com:lwq945/sticky-note.git
+- npm i
+- node ./bin/wwww
+- 浏览器输入 http://localhost:3000/
+## 线上预览
+[预览链接](http://note.lwq945.site/)
