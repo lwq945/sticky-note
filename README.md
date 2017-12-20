@@ -19,7 +19,7 @@
 ## 源码
 - git clone git@github.com:lwq945/sticky-note.git
 - npm i
-- node ./bin/wwww
+- node ./bin/www
 - 浏览器输入 http://localhost:3000/
 ## 线上预览
 [预览链接](http://note.lwq945.site/)
